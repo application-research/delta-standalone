@@ -31,11 +31,7 @@ else
     source $DELTA_ENV
 fi
 
-echo "| starting apps"
-nohup ./delta/delta daemon --mode=standalone >/dev/null &
-sleep 20
-nohup ./delta-dm/delta-dm daemon >/dev/null &
-sleep 5
-cd ./delta-nextjs-client && nohup npm run start >/dev/null &
+
+source start.sh
 
 echo "Δ Delta set up complete!"

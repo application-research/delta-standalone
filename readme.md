@@ -18,6 +18,7 @@ curl -s https://gist.githubusercontent.com/jcace/66d3c733c58cc53c2c692af547c875c
 | bash
 ```
 
+ > or, run the script contained in this repo `./install.sh` 
 Make sure you save the **API KEY** output as you'll need it to interact with Delta
 
 ```bash
@@ -31,11 +32,12 @@ Then, access the Delta UI at `http://localhost:3000`
 ## Updating
 Run the script `./delta-standalone/update.sh` to update all repositories to the latest version. It will also rebuild and restart the services. 
 
-### Script Installation
-Run the install script `install.sh` . This will clone all repositories, then build and run them.
 
-It will also generate an API key and output it to the terminal. Save this API key as you'll need it when interacting with Delta.
+## Stopping Delta Standalone
+`./stop.sh`
 
+## Restarting Delta Standalone
+`./start.sh`
 
 ## Important Files
 - `delta.env` contains the exported Delta API key. Back up this file. When running any Delta command-line operations, source this file first i.e `source delta.env` 

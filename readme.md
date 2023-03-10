@@ -49,3 +49,14 @@ Run the script `./delta-standalone/update.sh` to update all repositories to the 
 - Delta-DM: http://localhost:1314
 - Delta-DM frontend: http://localhost:3000
 
+
+## Troubleshooting
+### Check if apps are running
+`ps -aux | grep delta`
+
+You should see three processes running - `delta`, `delta-dm` and `delta-nextjs-client`
+```bash
+root     3540536 1013  0.0 8625752 654032 pts/1  Sl   14:46   5:03 ./delta/delta daemon --mode=standalone
+root     3540835  0.1  0.0 1167796 20312 pts/1   Sl   14:46   0:00 ./delta-dm/delta-dm daemon
+root     3540908  7.2  0.0 11134732 73124 pts/1  Sl   14:46   0:00 node /mnt/mnt_2/delta-standalone/delta-nextjs-client/node_modules/.bin/next start
+```

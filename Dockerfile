@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM golang:1.18
 
 # install dependencies
 RUN apt-get update && apt-get install -y \
@@ -6,7 +6,18 @@ RUN apt-get update && apt-get install -y \
     curl \
     make \
     npm \
-    jq
+    jq \
+    wget  \
+    hwloc  \
+    ocl-icd-opencl-dev \
+    libhwloc-dev  \
+    pkg-config  \
+    make \
+    cargo
+
+# install rust
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # clone repositories
 RUN git clone https://github.com/application-research/delta.git \
@@ -14,7 +25,7 @@ RUN git clone https://github.com/application-research/delta.git \
     && git clone https://github.com/application-research/delta-nextjs-client.git
 
 # build apps
-RUN cd delta && make all \
+RUN cd delta && RUSTFLAGS="-C target-cpu=native -g" FFI_BUILD_FROM_SOURCE=1 FFI_USE_BLST_PORTABLE=1 make all \
     && cd ../delta-dm && make build \
     && cd ../delta-nextjs-client && npm install && npm run build
 

@@ -3,7 +3,7 @@ echo "| starting apps"
 echo "| please wait - this will take a few seconds"
 
 DELTA_ENV=delta.env
-source $DELTA_ENV
+. $DELTA_ENV
 
 nohup ./delta/delta daemon --mode=standalone >/dev/null 2>&1 &
 sleep 20

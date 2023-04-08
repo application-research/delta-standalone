@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  delta:
+    build:
+      context: ./delta
+    container_name: delta
+    environment:
+      - DELTA_NODE_API=http://delta:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - delta-db
+    networks:
+      - delta-net
+
+  delta-db:
+    image: postgres:13-alpine
+    container_name: delta-db
+    environment:
+      - POSTGRES_PASSWORD=delta
+      - POSTGRES_USER=delta
+      - POSTGRES_DB=delta
+    volumes:
+      - delta-db:/var/lib/postgresql/data/
+    networks:
+      - delta-net
+
+  delta-dm:
+    build:
+      context: ./delta-dm
+    container_name: delta-dm
+    environment:
+      - DELTA_NODE_API=http://delta:8080
+      - DATABASE_URL=postgres://delta:delta@delta-db:5432/delta?sslmode=disable
+    depends_on:
+      - delta
+      - delta-db
+    networks:
+      - delta-net
+
+  delta-client:
+    build:
+      context: ./delta-nextjs-client
+    container_name: delta-client
+    environment:
+      - DELTA_NODE_API=http://delta:8080
+      - NEXT_PUBLIC_DELTA_URL=http://localhost
+    ports:
+      - "3000:3000"
+    depends_on:
+      - delta
+    networks:
+      - delta-net
+
+volumes:
+  delta-db:
+
+networks:
+  delta-net:

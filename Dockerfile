@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     make \
     cargo
 
+
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y nodejs
 
@@ -46,18 +47,15 @@ RUN if [ -f "$DELTA_ENV" && -z ${API_KEY+x} ]; then \
         && API_KEY=$(curl -s --location --request GET 'https://auth.estuary.tech/register-new-token' | jq -r .token) \
         && echo "| your DELTA API key is: $API_KEY" \
         && echo "| >> Please save this key for future requests" \
-        && echo -e "set -a\nDELTA_AUTH=$API_KEY \nset +a" > $DELTA_ENV \
+        && echo "DELTA_AUTH=$API_KEY \n" > $DELTA_ENV \
         && export DELTA_AUTH=$API_KEY \
         && . $DELTA_ENV; \
     fi
 
 # copy script files
-#WORKDIR /app
 COPY start.sh .
 COPY stop.sh .
 COPY update.sh .
-#COPY delta-upload.sh .
 
 # set up entrypoint
 ENTRYPOINT ["./start.sh"]
-EXPOSE 1414 1313 3005 3000 1314

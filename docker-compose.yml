@@ -2,6 +2,8 @@ version: '3.9'
 services:
   delta:
     build: .
+    container_name: delta
+    restart: always
     ports:
       - "1313:1313"
       - "1414:1414"

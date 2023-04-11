@@ -13,7 +13,7 @@ git clone git@github.com:application-research/delta-dm.git >/dev/null 2>&1
 git clone git@github.com:application-research/delta-nextjs-client.git >/dev/null 2>&1
 
 echo "| building apps"
-(cd delta && make build >/dev/null)
+(cd delta && make all >/dev/null)
 (cd delta-dm && make build >/dev/null)
 (cd delta-nextjs-client && npm install && npm run build >/dev/null)
 

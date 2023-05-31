@@ -10,7 +10,7 @@ echo "| cloning repositories"
 
 git clone git@github.com:application-research/delta.git >/dev/null 2>&1
 git clone git@github.com:application-research/delta-dm.git >/dev/null 2>&1
-git clone git@github.com:application-research/delta-nextjs-client.git >/dev/null 2>&1
+git clone git@github.com:application-research/delta-ui.git >/dev/null 2>&1
 
 echo "| building apps"
 (cd delta && make build >/dev/null)

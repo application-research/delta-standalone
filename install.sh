@@ -8,14 +8,14 @@ echo "| cloning repositories"
 # git clone https://github.com/application-research/delta-dm.git
 # git clone https://github.com/application-research/delta-nextjs-client.git
 
-git clone git@github.com:application-research/delta.git >/dev/null 2>&1
-git clone git@github.com:application-research/delta-dm.git >/dev/null 2>&1
-git clone git@github.com:application-research/delta-ui.git >/dev/null 2>&1
+git clone https://github.com/application-research/delta.git >/dev/null 2>&1
+git clone https://github.com/application-research/delta-dm.git >/dev/null 2>&1
+git clone https://github.com/application-research/delta-ui.git >/dev/null 2>&1
 
 echo "| building apps"
 (cd delta && make build >/dev/null)
 (cd delta-dm && make build >/dev/null)
-(cd delta-nextjs-client && npm install && npm run build >/dev/null)
+(cd delta-ui && npm install && npm run build >/dev/null)
 
 if [[ -f "$DELTA_ENV" ]]; then
     echo "| loading existing api key from .env"
